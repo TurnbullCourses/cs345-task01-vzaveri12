@@ -30,6 +30,12 @@ class BankAccountTest {
         assertFalse(BankAccount.isEmailValid("a@"));        // has no domain, border case
         assertTrue(BankAccount.isEmailValid("aa@c.edu"));   // valid email address, not a border case
         assertFalse(BankAccount.isEmailValid("a@$"));       // has no domain and special character, border case
+        assertFalse(BankAccount.isEmailValid("@@gmail.com"));
+        assertTrue(BankAccount.isEmailValid("ab@gmail.com"));
+        assertTrue(BankAccount.isEmailValid("012_abc@gmail.com"));
+        assertFalse(BankAccount.isEmailValid("$$$@gmail.com"));
+        assertFalse(BankAccount.isEmailValid(".ab@com"));
+
 
         
     }

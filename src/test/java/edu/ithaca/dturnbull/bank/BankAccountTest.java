@@ -26,7 +26,14 @@ class BankAccountTest {
         assertEquals(100, bankAccount.getBalance(), 0.001);
         assertThrows(InsufficientFundsException.class, () -> bankAccount.withdraw(300));
         BankAccount bankAccount2 = new BankAccount("a@b.com", 200);
-        assertThrows(InsufficientFundsException.class, () -> bankAccount2.withdraw(-300)); 
+        assertThrows(InsufficientFundsException.class, () -> bankAccount2.withdraw(-300));
+
+        BankAccount bankAccount3 = new BankAccount("a@b.com", 3000);
+        assertThrows(IllegalArgumentException.class, () -> bankAccount3.withdraw(-300.376)); //false case
+        assertThrows(IllegalArgumentException.class, () -> bankAccount3.withdraw(300.376)); //false case
+        
+
+
         
     }
 
@@ -65,6 +72,15 @@ class BankAccountTest {
         assertEquals(200, bankAccount.getBalance(), 0.001);
         //check for exception thrown correctly
         assertThrows(IllegalArgumentException.class, ()-> new BankAccount("", 100));
+
+        BankAccount bankAccount2 = new BankAccount("a@b.com", 3000);
+        assertThrows(IllegalArgumentException.class, () -> new BankAccount("",-300.376)); //false case
+        assertThrows(IllegalArgumentException.class, () -> new BankAccount("",300.376)); //false case
+
+
+
+
+
     }
 
 }

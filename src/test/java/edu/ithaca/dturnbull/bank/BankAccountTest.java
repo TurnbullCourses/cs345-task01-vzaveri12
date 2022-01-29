@@ -31,6 +31,16 @@ class BankAccountTest {
     }
 
     @Test
+    void isAmountValid(){
+        // Testing for decimal places and positive numbers
+        assertTrue(BankAccount.isAmountValid(300.00));
+        assertTrue(BankAccount.isAmountValid(30.50));
+        assertFalse(BankAccount.isAmountValid(70.345));
+        assertFalse(BankAccount.isAmountValid(-70.00));
+
+    }
+
+    @Test
     void isEmailValidTest(){
         assertTrue(BankAccount.isEmailValid( "a@b.com"));   // valid email address
         assertFalse( BankAccount.isEmailValid(""));         // empty string, border case

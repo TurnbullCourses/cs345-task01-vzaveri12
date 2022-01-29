@@ -43,7 +43,19 @@ public class BankAccount {
 
     */
     public static boolean  isAmountValid(double amount){
-       return false;
+        String doubleStr = Double.toString(amount);
+
+        if(amount < 0){
+            return false;
+            
+        }
+        else if(doubleStr.substring(doubleStr.lastIndexOf('.'), doubleStr.length() - 1).length() >= 2){ //check if amount has 5 or more digits (possibility that there is 3 decimals) 300.67 , 30.678
+            return false;
+        }
+        else{
+            return true;
+        }
+
 
     }
 

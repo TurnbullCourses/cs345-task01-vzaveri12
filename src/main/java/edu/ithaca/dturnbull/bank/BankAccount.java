@@ -9,7 +9,11 @@ public class BankAccount {
      * @throws IllegalArgumentException if email is invalid
      */
     public BankAccount(String email, double startingBalance){
-        if (isEmailValid(email)){
+        if(!isAmountValid(startingBalance)){
+            throw new IllegalArgumentException("amount cannot be negative or have more than 2 decimal places");
+
+        }
+        else if (isEmailValid(email)){
             this.email = email;
             this.balance = startingBalance;
         }
@@ -30,7 +34,11 @@ public class BankAccount {
      * @post reduces the balance by amount if amount is non-negative and smaller than balance
      */
     public void withdraw (double amount) throws InsufficientFundsException{
-        if (amount <= balance){
+        if(!isAmountValid(amount)){
+            throw new IllegalArgumentException("amount cannot be negative or have more than 2 decimal places");
+
+        }
+        else if (amount <= balance){
             balance -= amount;
         }
         else {
@@ -49,7 +57,7 @@ public class BankAccount {
             return false;
             
         }
-        else if(doubleStr.substring(doubleStr.lastIndexOf('.'), doubleStr.length() - 1).length() >= 2){ //check if amount has 5 or more digits (possibility that there is 3 decimals) 300.67 , 30.678
+        else if(doubleStr.substring(doubleStr.lastIndexOf('.'), doubleStr.length() - 1).length() > 2){ //check if amount has 5 or more digits (possibility that there is 3 decimals) 300.67 , 30.678
             return false;
         }
         else{

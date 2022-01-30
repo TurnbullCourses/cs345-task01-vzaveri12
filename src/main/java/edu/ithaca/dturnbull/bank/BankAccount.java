@@ -8,7 +8,7 @@ public class BankAccount {
     /**
      * @throws IllegalArgumentException if email is invalid
      */
-    public BankAccount(String email, double startingBalance){
+    public BankAccount(String email, double startingBalance) {
         if (isEmailValid(email)){
             this.email = email;
             this.balance = startingBalance;

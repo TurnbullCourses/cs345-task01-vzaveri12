@@ -45,10 +45,35 @@ public class BankAccount {
             throw new InsufficientFundsException("Not enough money");
         }
     }
+    /**
+     * @post deposit amount to bankaccount
+     */
+    public void deposit(double amount) throws IllegalArgumentException {
+        if (!isAmountValid(amount)) {
+            throw new IllegalArgumentException("amount cannot be negative or have more than 2 decimal places");
+        }
+        else {
+            balance = balance + amount;
+        } 
+    }
+
+     /**
+     * @post transfering amount to another bankaccount
+     */
+    public void transferAmount(BankAccount account, double amount) throws InsufficientFundsException, IllegalArgumentException{
+        if(!isAmountValid(amount)){
+            throw new IllegalArgumentException("Amount Invalid");
+        }
+        else{
+           withdraw(amount);
+            account.deposit(amount); //account to which we trasfer to
+        }
+    
+    }
+
 
    /**
     * @return true if the amount is positive and has two decimal points or less, and false otherwise
-
     */
     public static boolean  isAmountValid(double amount){
         String doubleStr = Double.toString(amount);
@@ -66,7 +91,9 @@ public class BankAccount {
 
 
     }
-
+     /**
+     * @post checks for valid emails
+     */
     public static boolean isEmailValid(String email){
         if(email.contains("@") && email.contains(".")){
             return true;

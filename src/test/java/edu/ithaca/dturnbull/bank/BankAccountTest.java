@@ -38,7 +38,34 @@ class BankAccountTest {
     }
 
     @Test
-    void isAmountValid(){
+    void depositTest() throws IllegalArgumentException{ // or insuffieient funds exception ?
+         BankAccount bankAccount = new BankAccount("a@b.com", 350);
+         bankAccount.deposit(100);
+         assertEquals(450, bankAccount.getBalance(), 0.001);
+         assertThrows(IllegalArgumentException.class, () -> bankAccount.deposit(-300));
+
+         BankAccount bankAccount2 = new BankAccount("a@b.com", 350);
+         //assertThrows(IllegalArgumentException.class, () -> bankAccount2.deposit(60.970));
+         assertThrows(IllegalArgumentException.class, ()-> bankAccount2.deposit(60.975));
+    }
+    @Test
+    void transferTest() throws InsufficientFundsException{
+        BankAccount bankAccount = new BankAccount("a@b.com", 200);
+        BankAccount bankAccount2 = new BankAccount("a@b.com", 400);
+        //assertEquals(100, bankAccount.transferAmount(100), 0.001);
+
+        bankAccount.transferAmount(bankAccount2, 200); //true case
+        assertEquals(0, bankAccount.getBalance(), 0.001);
+        assertEquals(600, bankAccount2.getBalance(), 0.001);
+
+        assertThrows(IllegalArgumentException.class, ()-> bankAccount2.transferAmount(bankAccount, 100.505)); //false case 
+       
+
+
+    }
+
+    @Test
+    void isAmountValidTest(){
         // Testing for decimal places and positive numbers
         assertTrue(BankAccount.isAmountValid(300.00));
         assertTrue(BankAccount.isAmountValid(30.50));

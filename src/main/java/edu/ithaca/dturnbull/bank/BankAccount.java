@@ -8,7 +8,9 @@ public class BankAccount {
     /**
      * @throws IllegalArgumentException if email is invalid
      */
-    public BankAccount(String email, double startingBalance) {
+
+
+    public BankAccount(String email, double startingBalance){
         if (isEmailValid(email)){
             this.email = email;
             this.balance = startingBalance;
@@ -19,6 +21,9 @@ public class BankAccount {
     }
 
     public double getBalance(){
+        if(!isAmountValid(balance)){
+            throw new IllegalArgumentException("amount cannot be negative or have more than 2 decimal places");
+        }
         return balance;
     }
 

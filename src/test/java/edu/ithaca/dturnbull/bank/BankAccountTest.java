@@ -12,8 +12,7 @@ class BankAccountTest {
         assertEquals(200, bankAccount.getBalance(), 0.001);
     
         BankAccount bankAccount2 = new BankAccount("abc@gmail.com", -1200);
-       //assertThrows(IllegalArgumentException.class, () -> bankAccount2.getBalance());
-        assertEquals(-1200, bankAccount2.getBalance(), 0.001);
+        assertThrows(IllegalArgumentException.class, () -> bankAccount2.getBalance());
 
 
     }

@@ -9,11 +9,7 @@ public class BankAccount {
      * @throws IllegalArgumentException if email is invalid
      */
     public BankAccount(String email, double startingBalance){
-        if(!isAmountValid(startingBalance)){
-            throw new IllegalArgumentException("amount cannot be negative or have more than 2 decimal places");
-
-        }
-        else if (isEmailValid(email)){
+        if (isEmailValid(email)){
             this.email = email;
             this.balance = startingBalance;
         }
@@ -95,11 +91,53 @@ public class BankAccount {
      * @post checks for valid emails
      */
     public static boolean isEmailValid(String email){
-        if(email.contains("@") && email.contains(".")){
-            return true;
+        int count = 0;
+
+        for(int i = 0; i < email.length(); i++){
+            if(email.charAt(i) == '@'){
+                count++;
+            }
         }
-        else{
+
+        if(count != 1){
             return false;
         }
+
+        String[] splitEmail = email.split("@", 2);
+
+        if(splitEmail[0].contains("!") || splitEmail[0].contains("#") || splitEmail[0].contains("$") || 
+        splitEmail[0].contains("%") || splitEmail[0].contains("^") || splitEmail[0].contains("&") ||
+        splitEmail[0].contains("*") || splitEmail[0].contains("(") || splitEmail[0].contains(")") ||
+        splitEmail[0].contains("+") || splitEmail[0].contains("=") || splitEmail[0].contains("[") ||
+        splitEmail[0].contains("]") || splitEmail[0].contains("{") || splitEmail[0].contains("}") ||
+        splitEmail[0].contains("<") || splitEmail[0].contains(">") || splitEmail[0].contains(",") ||
+        splitEmail[0].contains("/") || splitEmail[0].contains("?") || splitEmail[0].contains("|")){
+            return false;
+        }
+        else if(splitEmail[0].charAt(0) == '.'){
+            return false;
+        }
+
+        if(splitEmail[1].contains("!") || splitEmail[1].contains("#") || splitEmail[1].contains("$") || 
+        splitEmail[1].contains("%") || splitEmail[1].contains("^") || splitEmail[1].contains("&") ||
+        splitEmail[1].contains("*") || splitEmail[1].contains("(") || splitEmail[1].contains(")") ||
+        splitEmail[1].contains("+") || splitEmail[1].contains("=") || splitEmail[1].contains("[") ||
+        splitEmail[1].contains("]") || splitEmail[1].contains("{") || splitEmail[1].contains("}") ||
+        splitEmail[1].contains("<") || splitEmail[1].contains(">") || splitEmail[1].contains(",") ||
+        splitEmail[1].contains("/") || splitEmail[1].contains("?") || splitEmail[1].contains("|") ||
+        splitEmail[1].contains("_")){
+            return false;
+        }
+        if(!splitEmail[1].contains(".")){
+            return false;
+        }
+        if(splitEmail[1].length() < 3){
+            return false;
+        }
+
+        else{
+            return true;
+        }
+
     }
 }

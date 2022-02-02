@@ -11,7 +11,10 @@ public class BankAccount {
 
 
     public BankAccount(String email, double startingBalance){
-        if (isEmailValid(email)){
+        if(!isAmountValid(startingBalance)){
+            throw new IllegalArgumentException("invalid amount entered");
+        }
+        else if (isEmailValid(email)){
             this.email = email;
             this.balance = startingBalance;
         }
@@ -96,53 +99,38 @@ public class BankAccount {
      * @post checks for valid emails
      */
     public static boolean isEmailValid(String email){
-        int count = 0;
-
-        for(int i = 0; i < email.length(); i++){
-            if(email.charAt(i) == '@'){
-                count++;
-            }
-        }
-
-        if(count != 1){
+        if (email.indexOf('@') == -1){
             return false;
         }
-
-        String[] splitEmail = email.split("@", 2);
-
-        if(splitEmail[0].contains("!") || splitEmail[0].contains("#") || splitEmail[0].contains("$") || 
-        splitEmail[0].contains("%") || splitEmail[0].contains("^") || splitEmail[0].contains("&") ||
-        splitEmail[0].contains("*") || splitEmail[0].contains("(") || splitEmail[0].contains(")") ||
-        splitEmail[0].contains("+") || splitEmail[0].contains("=") || splitEmail[0].contains("[") ||
-        splitEmail[0].contains("]") || splitEmail[0].contains("{") || splitEmail[0].contains("}") ||
-        splitEmail[0].contains("<") || splitEmail[0].contains(">") || splitEmail[0].contains(",") ||
-        splitEmail[0].contains("/") || splitEmail[0].contains("?") || splitEmail[0].contains("|")){
+        else if(email.length() <= 3){
             return false;
         }
-        else if(splitEmail[0].charAt(0) == '.'){
+        else if(email.isEmpty()){
+                return false;
+        }
+        else if(email.indexOf('@') == 0 || email.indexOf('.') == 0 ){ //34
             return false;
         }
-
-        if(splitEmail[1].contains("!") || splitEmail[1].contains("#") || splitEmail[1].contains("$") || 
-        splitEmail[1].contains("%") || splitEmail[1].contains("^") || splitEmail[1].contains("&") ||
-        splitEmail[1].contains("*") || splitEmail[1].contains("(") || splitEmail[1].contains(")") ||
-        splitEmail[1].contains("+") || splitEmail[1].contains("=") || splitEmail[1].contains("[") ||
-        splitEmail[1].contains("]") || splitEmail[1].contains("{") || splitEmail[1].contains("}") ||
-        splitEmail[1].contains("<") || splitEmail[1].contains(">") || splitEmail[1].contains(",") ||
-        splitEmail[1].contains("/") || splitEmail[1].contains("?") || splitEmail[1].contains("|") ||
-        splitEmail[1].contains("_")){
+        else if(!Character.isLetter(email.charAt(email.indexOf('@') - 1))){ //35
             return false;
         }
-        if(!splitEmail[1].contains(".")){
+        else if(email.contains("$") || email.contains("!") || email.contains("#")){ //36
             return false;
         }
-        if(splitEmail[1].length() < 3){
+        else if(email.charAt(email.indexOf('.')) == email.charAt(email.indexOf('.') + 1)){ // 38
             return false;
         }
-
+        // else if(email.lastIndexOf('.') <= email.length()- 2){
+        //     return false;    
+        // }
+        else if(email.lastIndexOf('.')+ 2 >= email.length()){
+            return false;    
+        }
         else{
             return true;
         }
+
+       
 
     }
 }

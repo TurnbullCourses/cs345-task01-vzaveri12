@@ -31,6 +31,12 @@ class BankAccountTest {
         BankAccount bankAccount3 = new BankAccount("a@b.com", 3000);
         assertThrows(IllegalArgumentException.class, () -> bankAccount3.withdraw(-300.376)); //false case
         assertThrows(IllegalArgumentException.class, () -> bankAccount3.withdraw(300.376)); //false case
+
+        //checking for wrong email
+    //     BankAccount bankAccount4 = new BankAccount("a@b", 30000); shows invalid email when uncommented (works)
+    //    assertThrows(IllegalArgumentException.class, () -> bankAccount4.withdraw(20.37)); 
+
+        
         
 
 
@@ -104,6 +110,12 @@ class BankAccountTest {
         BankAccount bankAccount2 = new BankAccount("a@b.com", 3000);
         assertThrows(IllegalArgumentException.class, () -> new BankAccount("",-300.376)); //false case
         assertThrows(IllegalArgumentException.class, () -> new BankAccount("",300.376)); //false case
+
+        assertThrows(IllegalArgumentException.class, () -> new BankAccount("2@",67.37)); //false case
+        assertThrows(IllegalArgumentException.class, () -> new BankAccount("abc@gmail.com",-900)); //false case
+
+
+        
 
 
 

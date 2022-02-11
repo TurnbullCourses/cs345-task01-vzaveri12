@@ -1,6 +1,6 @@
 package edu.ithaca.dturnbull.bank;
 /**
- * CustomerAccount
+ * BankCustomer
  * This class will help users to make, manage and look over their accounts
  */
 public class BankCustomer {
@@ -22,8 +22,6 @@ public class BankCustomer {
         this.lastName = lastName;
         savings = new BankAccount(email, savingsBalance);
         checking = new BankAccount(email, checkingsBalance);
-
-
     }
 
     public void depositChecking(double amount) {
